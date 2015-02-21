@@ -4,9 +4,6 @@
 import csv
 from subprocess import Popen, PIPE
 
-fname = "Export_LP.csv"
-file = open(fname, "rb")
-
 def path_for(element, path=None):
 	""" Generate path name from elements name and current path """
 	path = "%s/%s" % (element[5], element[4]) 
@@ -29,9 +26,15 @@ def import_entry(element, path=''):
     proc.communicate(password_data(element).encode('utf8'))
     proc.wait()
 
-try:
-	reader = csv.reader(file)
-	for row in reader:
-		import_entry(row)
-finally:
-	file.close()
+def main():
+	fname = "Export_LP.csv"
+	file = open(fname, "rb")
+	try:
+		reader = csv.reader(file)
+		for row in reader:
+			import_entry(row)
+	finally:
+		file.close()
+
+if __name__ == "__main__":
+	main()
