@@ -2,6 +2,7 @@
 
 
 import csv
+import sys
 from subprocess import Popen, PIPE
 
 def path_for(element, path=None):
@@ -10,6 +11,7 @@ def path_for(element, path=None):
 	return path
 
 def password_data(element):
+	""" Extract data to fill each pass entry """
 	URL = "URL: {0}".format(element[0])
 	ID = "ID: {0}".format(element[1])
 	pw = "Password: {0}".format(element[2])
@@ -26,9 +28,8 @@ def import_entry(element, path=''):
     proc.communicate(password_data(element).encode('utf8'))
     proc.wait()
 
-def main():
-	fname = "Export_LP.csv"
-	file = open(fname, "rb")
+def main(inputfile):
+	file = open(inputfile, "rb")
 	try:
 		reader = csv.reader(file)
 		for row in reader:
@@ -37,4 +38,4 @@ def main():
 		file.close()
 
 if __name__ == "__main__":
-	main()
+	main(sys.argv[1])
