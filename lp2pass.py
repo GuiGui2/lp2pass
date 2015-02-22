@@ -38,4 +38,8 @@ def main(inputfile):
 		file.close()
 
 if __name__ == "__main__":
-	main(sys.argv[1])
+	try:
+		main(sys.argv[1])
+	except IndexError:
+		print "Please specify the name of the file to import"
+		sys.exit(1)
